@@ -2,11 +2,11 @@ const pool = require('../config/db_pgsql');
 const usersqueries = require ('../queries/perfume.queries');
 
 // GET
-const getAllEntries = async () => {
+const getAllPerfumes = async (perfume) => {
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.getAllEntries)
+        const data = await client.query(userqueries.getAllPerfumes)
         console.log(data.rows)
         result = data.rows
     } catch (err) {
@@ -19,12 +19,12 @@ const getAllEntries = async () => {
 }
 
 //CREATE
-const createEntry = async (entry) => {
-    const { title, content, id_author, category } = entry;
+const createPerfume = async (perfume) => {
+    const { nombre, marca, foto, puntuacion, etiqueta } = perfume;
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.createEntry,[title, content, id_author, category])
+        const data = await client.query(queries.createPerfume,[title, content, id_author, category])
         result = data.rows
     } catch (err) {
         console.log(err);
@@ -36,14 +36,14 @@ const createEntry = async (entry) => {
 }
 
 //UPDATE
-const updateEntries = async (entry) => {
-    const { oldTitle, content, date, newTitle, category } = entry;
+const updatePerfume = async (perfume) => {
+    const { oldTitle, content, date, newTitle, category } = perfume;
     let client, result;
 
     try {
         client = await pool.connect();
         const data = await client.query(
-            queries.updateEntries,
+            queries.updatePerfume,
             [oldTitle, content, date, newTitle, category]
         );
         result = data.rowCount; 
@@ -58,12 +58,12 @@ const updateEntries = async (entry) => {
 };
 
 //DELETE
-const deleteEntry = async (email) => {
+const deletePerfume = async (email) => {
     let client, result;
 
     try {
         client = await pool.connect();
-        result = await client.query(queries.deleteEntry, [email]);
+        result = await client.query(queries.deletePerfume, [email]);
     } catch (err) {
         console.error(err);
         throw err;
@@ -77,13 +77,12 @@ const deleteEntry = async (email) => {
 
 
 
-const entries = {
-    getEntriesByEmail,
-    getAllEntries,
-    createEntry,
-    updateEntries,
-    deleteEntry
+const perfumes = {
+    
+    createPerfume,
+    updatePerfume,
+    deletePerfume
     
 }
 
-module.exports = entries;
+module.exports = perfumes;
