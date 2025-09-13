@@ -1,16 +1,13 @@
 const userQueries = {
 
   createUser: `
-    INSERT INTO users (correo, password)
-    VALUES ($1, $2, $3)
+    INSERT INTO users (email, password)
+    VALUES ($1, $2)
     RETURNING *;
   `,
-  getUserByCorreo: `
-    SELECT * FROM users WHERE correo = $1;
-  `,
-  getAllUsers: `
-    SELECT * FROM users;
-  `,
+  // getUserByemail: `
+  //   SELECT * FROM users WHERE email = $1;
+  // `,
   updateUser: `
     UPDATE users
     SET correo = $1, password = $2
@@ -20,13 +17,13 @@ const userQueries = {
   logIn: `
     UPDATE users
     SET logged = true
-    WHERE correo = $1
+    WHERE email = $1
     RETURNING *;
   `,
   logOut: `
     UPDATE users
     SET logged = false
-    WHERE correo = $1
+    WHERE email = $1
     RETURNING *;
   `
 };
