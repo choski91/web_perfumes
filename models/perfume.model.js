@@ -31,7 +31,7 @@ const createPerfume = async (perfume) => {
       etiqueta,
       id_usuario,
     ]);
-    result = data.rows[0]; // porque RETURNING *
+    result = data.rows[0]; 
   } catch (err) {
     console.error(err);
     throw err;
