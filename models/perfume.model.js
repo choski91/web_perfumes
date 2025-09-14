@@ -1,89 +1,91 @@
 const pool = require('../config/db_pgsql');
-const usersqueries = require ('../queries/perfume.queries');
+const perfumeQueries = require('../queries/perfume.queries');
 
-// GET
-const getAllEntries = async () => {
-    let client, result;
-    try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.getAllEntries)
-        console.log(data.rows)
-        result = data.rows
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-    return result
-}
-
-//CREATE
-const createEntry = async (entry) => {
-    const { title, content, id_author, category } = entry;
-    let client, result;
-    try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.createEntry,[title, content, id_author, category])
-        result = data.rows
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-    return result
-}
-
-//UPDATE
-const updateEntries = async (entry) => {
-    const { oldTitle, content, date, newTitle, category } = entry;
-    let client, result;
-
-    try {
-        client = await pool.connect();
-        const data = await client.query(
-            queries.updateEntries,
-            [oldTitle, content, date, newTitle, category]
-        );
-        result = data.rowCount; 
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        if (client) client.release();
-    }
-
-    return result;
+// GET ALL
+const getAllPerfumes = async () => {
+  let client, result;
+  try {
+    client = await pool.connect();
+    const data = await client.query(perfumeQueries.getAllPerfumes);
+    result = data.rows;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (client) client.release();
+  }
+  return result;
 };
 
-//DELETE
-const deleteEntry = async (email) => {
-    let client, result;
-
-    try {
-        client = await pool.connect();
-        result = await client.query(queries.deleteEntry, [email]);
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-
-    return result.rowCount;
+// CREATE
+const createPerfume = async (perfume) => {
+  const { nombre, marca, foto, puntuacion, etiqueta, id_usuario } = perfume;
+  let client, result;
+  try {
+    client = await pool.connect();
+    const data = await client.query(perfumeQueries.createPerfume, [
+      nombre,
+      marca,
+      foto,
+      puntuacion,
+      etiqueta,
+      id_usuario,
+    ]);
+    result = data.rows[0]; 
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (client) client.release();
+  }
+  return result;
 };
 
+// UPDATE
+const updatePerfume = async (perfume) => {
+  const { id_perfume, nombre, marca, foto, puntuacion, etiqueta } = perfume;
+  let client, result;
+  try {
+    client = await pool.connect();
+    const data = await client.query(perfumeQueries.updatePerfume, [
+      nombre,
+      marca,
+      foto,
+      puntuacion,
+      etiqueta,
+      id_perfume,
+    ]);
+    result = data.rows[0];
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (client) client.release();
+  }
+  return result;
+};
 
+// DELETE
+const deletePerfume = async (id_perfume) => {
+  let client, result;
+  try {
+    client = await pool.connect();
+    const data = await client.query(perfumeQueries.deletePerfume, [id_perfume]);
+    result = data.rowCount; 
+  } catch (err) {
+    console.error(err);
+    throw err;
+  } finally {
+    if (client) client.release();
+  }
+  return result;
+};
 
+const perfumes = {
+  getAllPerfumes,
+  createPerfume,
+  updatePerfume,
+  deletePerfume,
+};
 
-const entries = {
-    getEntriesByEmail,
-    getAllEntries,
-    createEntry,
-    updateEntries,
-    deleteEntry
-    
-}
-
-module.exports = entries;
+module.exports = perfumes;

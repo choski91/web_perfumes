@@ -2,20 +2,20 @@ const pool = require('../config/db_pgsql');
 const userQueries = require ('../queries/user.queries');
 
 // GET
-const getUserByEmail = async (email) => {
-    let client, result;
-    try {
-        client = await pool.connect(); 
-        const data = await client.query(userQueries.getUserByEmail, [email])
-        result = data.rows
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-    return result
-}
+// const getUserByEmail = async (email) => {
+//     let client, result;
+//     try {
+//         client = await pool.connect(); 
+//         const data = await client.query(userQueries.getUserByEmail, [email])
+//         result = data.rows
+//     } catch (err) {
+//         console.log(err);
+//         throw err;
+//     } finally {
+//         client.release();
+//     }
+//     return result
+// }
 
 
 //CREATE
@@ -57,29 +57,11 @@ const updateUser = async (user) => {
 };
 
 
-//DELETE
-const deleteUser = async (email) => {
-    let client, result;
-
-    try {
-        client = await pool.connect();
-        result = await client.query(userQueries.deleteUser, [email]);
-    } catch (err) {
-        console.error(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-
-    return result.rowCount;
-};
-
 
 const users = {
-    getUserByEmail,
+    // getUserByEmail,
     createUser,
     updateUser,
-    deleteUser
 };
 
 module.exports = users;
