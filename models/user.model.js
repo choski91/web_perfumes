@@ -1,5 +1,4 @@
 const pool = require('../config/db_pgsql');
-const userQueries = require ('../queries/user.queries');
 
 // GET
 // const getUserByEmail = async (email) => {
@@ -17,6 +16,17 @@ const userQueries = require ('../queries/user.queries');
 //     return result
 // }
 
+// GET
+const getAllUsers = async () => {
+    let client, result;
+    try {
+        const result = await pool.query(userQueries.getAllUsers);
+        return result.rows;
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        return [];
+    }
+};
 
 //CREATE
 const createUser = async (user) => {
@@ -60,6 +70,7 @@ const updateUser = async (user) => {
 
 const users = {
     // getUserByEmail,
+    getAllUsers,
     createUser,
     updateUser,
 };

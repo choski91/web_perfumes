@@ -71,7 +71,7 @@ const deletePerfume = async (id_perfume) => {
   try {
     client = await pool.connect();
     const data = await client.query(perfumeQueries.deletePerfume, [id_perfume]);
-    result = data.rowCount; 
+    result = data.rows[0]; // Devuelve el perfume borrado
   } catch (err) {
     console.error(err);
     throw err;

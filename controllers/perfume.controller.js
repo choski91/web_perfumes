@@ -1,21 +1,21 @@
 const perfume = require('../models/perfume.model');
 
 
-// GET http://localhost:3000/entries --> ALL
+// GET http://localhost:3000/perfumes --> ALL
 // GET http://localhost:3000/entries?email=hola@gmail.com --> por email
 
 const getPerfume = async (req, res) => {
     let perfumes;
     if (req.query.email) {
-        entries = await entry.getEntriesByEmail(req.query.email);
+        entries = await perfume.getEntriesByEmail(req.query.email);
     }
     else {
-        perfumes = await entry.getAllPerfumes();
+        perfumes = await perfume.getAllPerfumes();
     }
     res.status(200).json(entries); 
 }
 
-//POST http://localhost:3000/api/perfumes/ 
+//POST http://localhost:3000/api/perfume/ 
 
 const createPerfume = async (req, res) => {
     const newPerfume = req.body; 
@@ -26,7 +26,7 @@ const createPerfume = async (req, res) => {
     });
 }
 
-//PUT http://localhost:3000/api/entries/
+//PUT http://localhost:3000/api/perfume/
 
 const updatePerfume = async (req, res) => {
     const updatePerfume = req.body; // { oldTitle, content, date, newTitle, category }
@@ -53,7 +53,7 @@ const updatePerfume = async (req, res) => {
 };
 
 
-//DELETE http://localhost:3000/api/perfumes/ 
+//DELETE http://localhost:3000/api/perfume/ 
 const deletePerfume = async (req, res) => {
     const { email } = req.body;
 

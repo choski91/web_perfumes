@@ -2,7 +2,7 @@ const user = require('../models/user.model');
 
 //GET http://localhost:3000/api/user
 
-const getUsers = async (req, res) => {
+const getAllUsers = async (req, res) => {
     let users;
     if (req.query.email) {
         users = await user.getUserByEmail(req.query.email);
@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
     });
 }
 
-//PUT http://localhost:3000/api/authors/ 
+//PUT http://localhost:3000/api/user/ 
 
 const editUser = async (req, res) => {
     const updateUser = req.body; // { oldEmail, email, password }
@@ -50,7 +50,7 @@ const editUser = async (req, res) => {
     }
 };
 
-//DELETE http://localhost:3000/api/authors/ 
+//DELETE http://localhost:3000/api/user/ 
 
 // const deleteAuthor = async (req, res) => {
 //     const { email } = req.body;
@@ -71,7 +71,7 @@ const editUser = async (req, res) => {
 
 
 module.exports = {
-    getUsers,
+    getAllUsers,
     createUser,
     editUser,
     // deleteAuthor
