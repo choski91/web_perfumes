@@ -6,6 +6,7 @@ CREATE TABLE users (
     logged BOOLEAN DEFAULT false  
 ),
 
+--TABLE PERFUMES--
 CREATE TABLE perfumes (
     id_perfume SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -16,27 +17,18 @@ CREATE TABLE perfumes (
     id_usuario INT REFERENCES users (id),
 ),
 
---CREAR USUARIO SIGNUP
-INSERT INTO users (email, password)
-VALUES ($1, $2);
 
---OBTENER USUARIO POR EMAIL PARA LOGIN
-SELECT * FROM users WHERE email = $1;
+   INSERT INTO perfumes (nombre, marca, foto, puntuacion, etiqueta, id_usuario)
+    VALUES ('my dream', 'tommy hilfiger', 'dreaming foto.jpg', 5, 'intenso', 1)
 
---SELECT ALL FROM USERS
-SELECT * FROM users;
+   INSERT INTO perfumes (nombre, marca, foto, puntuacion, etiqueta, id_usuario)
+    VALUES ('gardenia', 'zara', 'gardenia foto.jpg', 4, 'intenso', 1)
 
---ACTUALIZAR PERFIL USER
-UPDATE users
-SET  email = $1, password = $2
-WHERE id = $3;
+   
+   INSERT INTO perfumes (nombre, marca, foto, puntuacion, etiqueta, id_usuario)
+    VALUES ('miss dior', 'dior', 'miss dior foto.jpg', 3, 'fresco', 1)
 
---logIn
-UPDATE users 
-SET logged = true
-WHERE email = $1 AND password = $2;
-
---logOut
-UPDATE users
-SET logged = false
-WHERE id = $1;
+    SELECT p.* 
+    FROM perfumes p
+    JOIN usuarios u ON p.id_usuario = u.id
+   WHERE u.email = $1

@@ -5,6 +5,14 @@ const perfumeQueries = {
     RETURNING *;
   `,
 
+  getPerfumesByUserEmail : `
+  SELECT p.* 
+  FROM perfumes p
+  JOIN users u ON p.id_usuario = u.id
+  WHERE u.email = $1
+ `,
+
+
   getAllPerfumes: `
     SELECT * FROM perfumes;
   `,
@@ -28,6 +36,12 @@ const perfumeQueries = {
     DELETE FROM perfumes
     WHERE id_perfume = $1
     RETURNING *;
+  `,
+
+    getPerfumesFiltered: `
+    SELECT * 
+    FROM perfumes
+    WHERE nombre ILIKE $1 OR marca ILIKE $1
   `
 };
 
