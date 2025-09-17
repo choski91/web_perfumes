@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config(); //cargo las variables de entorno de .env a process.env
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 const perfumeRoutes = require("./routes/perfume.routes");
 const userRoutes = require("./routes/user.routes");
 
-app.use(cors());
+app.use(cors());// para que mi api acepte peticiones
 app.use(express.json());
 
 app.get('/', (req, res) => {

@@ -1,0 +1,33 @@
+@use '../utils/variables' as variables;
+@use '../utils/mixins' as mixins;
+
+.card-style {
+  background-color: variables.$uranian-blue;
+  margin: 20px;
+  border-radius: 20px;
+  color: black;
+  padding: 20px;
+  min-height: 150px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+
+  // Flex dinámico
+  flex: 1 1 250px; // crece y se reduce según el espacio disponible
+  max-width: 300px; 
+  min-width: 200px; 
+
+  @include mixins.shadow(variables.$carnation-pink);
+
+  // Texto centrado y responsive
+  text-align: center;
+  font-size: 1rem;
+
+  @media (max-width: 480px) {
+    width: 90%; // ocupa casi todo el ancho en móvil
+    min-width: unset;
+    max-width: unset;
+  }
+}

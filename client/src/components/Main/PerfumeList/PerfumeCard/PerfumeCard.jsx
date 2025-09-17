@@ -2,15 +2,7 @@ import React from "react";
 
 const PerfumeCard = ({ perfume }) => {
   return (
-    <div
-      style={{
-        borderRadius: "8px",
-        padding: "10px",
-        marginBottom: "10px",
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-      }}
+    <article className="card-style"
     >
       <img
         src={perfume.foto}
@@ -22,7 +14,7 @@ const PerfumeCard = ({ perfume }) => {
         <p>Puntuación: {perfume.puntuacion}</p>
         <p>Etiqueta: {perfume.etiqueta}</p>
       </div>
-    </div>
+    </article>
   );
 };
 

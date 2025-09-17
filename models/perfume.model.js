@@ -17,13 +17,13 @@ const getPerfumesByEmail = async (email) => {
   return result;
 };
 
-const getPerfumesFiltered = async (searchTerm) => {
+const getPerfumesFiltered = async (searchTerm) => { //Recibe como parámetro el texto que el usuario escribió para filtrar perfumes//
   let client, result;
   try {
     client = await pool.connect();
     const data = await client.query(
       perfumeQueries.getPerfumesFiltered,
-      [`%${searchTerm}%`]
+      [`%${searchTerm}%`]//Si searchTerm = "chanel", entonces ${searchTerm} se convierte en "chanel"
     );
     result = data.rows;
   } catch (err) {

@@ -98,7 +98,7 @@ flowchart LR
     B -->|Fetch/Axios| C[⚙️ Backend Express]
     C -->|SQL Queries| D[(🗄️ Base de Datos SQL)]
 
-
+``` 
 🚀 Instalación
 
 Clona el repositorio:

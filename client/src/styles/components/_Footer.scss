@@ -1,0 +1,35 @@
+@use '../utils/mixins' as mixins;
+@use '../utils/variables' as variables;
+
+
+%footer-bar-basic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  color: black; 
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;  
+}
+
+.footer-style {
+  @extend %footer-bar-basic;
+  background-color: variables.$uranian-blue; 
+  width: 100%;
+  text-align: center;
+
+  // Media queries para responsi
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
+}
+
+
